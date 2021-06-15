@@ -4,7 +4,6 @@
 // Exiba a média de viagens ordenada de forma crescente.
 // Para arredondar a média use o $round.
 
-use("aggregations");
 db.trips.aggregate([
   {
     $addFields: {
