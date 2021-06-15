@@ -4,7 +4,6 @@
 // Exiba apenas o nome da estação e o total de viagens.
 // Dica: Utilize o operador $dayOfWeek para extrair o dia da semana como um número de uma data.
 
-use("aggregations");
 db.trips.aggregate([
   {
     $match: {
