@@ -1,4 +1,3 @@
-
 db.movies.aggregate([
   {
     $addFields: {
