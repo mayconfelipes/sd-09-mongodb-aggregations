@@ -7,5 +7,4 @@ db.movies.aggregate([
       languages: { $all: ["English", "Spanish"]  },
     },
   },
-  { $group: { _id: null, total: { $sum: 1 } } },
 ]);
