@@ -13,14 +13,15 @@ db.movies.aggregate([
       num_favs: {
         $size: {
           $setIntersection: [
-            ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney",],
-            "$cast"],
+            ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"],
+            "$cast",
+          ],
         },
       },
     },
   },
   {
-    $match:{
+    $match: {
       num_favs: { $gt: 0 },
     },
   },
