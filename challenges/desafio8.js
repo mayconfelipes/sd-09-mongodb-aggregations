@@ -17,4 +17,10 @@ db.air_routes.aggregate([
     totalRotas: { $sum: 1 },
   } },
 
+  { $match: { _id: { $size: 1 } } },
+
+  { $sort: { totalRotas: -1 } },
+
+  { $limit: 1 },
+
 ]);
