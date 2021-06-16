@@ -19,7 +19,4 @@ db.movies.aggregate([
       ano: "$year",
     },
   },
-  {
-    $sort: { _ }
-  },
 ]);
