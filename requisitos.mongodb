@@ -416,3 +416,132 @@ db.trips.aggregate([
     $project: { _id: 0 }
   }
 ]);
+
+### Desafio 10
+
+#### Encontre a média de viagens por tipo de usuário. 
+
+- Exiba o valor em horas com apenas duas casas decimais 
+- Exiba a média de viagens ordenada de forma crescente. 
+
+Para arredondar a média use o [`$round`](https://docs.mongodb.com/manual/reference/operator/aggregation/round/index.html).
+
+O resultado da sua query deve ter o seguinte formato:
+
+```javascript
+{ "tipo" : <tipo>, "duracaoMedia" : <duracaoMedia> }
+// ...
+```
+use("aggregations");
+db.air_airlines.aggregate([]);
+
+use("aggregations");
+db.air_alliances.aggregate([]);
+
+use("aggregations");
+db.air_routes.aggregate([
+ 
+]);
+
+use("aggregations");
+db.trips.aggregate([])
+
+use("aggregations");
+db.trips.aggregate([
+  {
+    $group: {
+      _id: "$usertype",
+      count: { $avg: { $subtract: ["$stopTime", "$startTime"] } }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      tipo: "$_id",
+      duracaoMedia: { $round: [{ $divide: ["$count", 60*60*1000] }, 2] }
+    }
+  },
+  { $sort: { duracaoMedia: 1 } }
+]);
+### Desafio 11
+
+#### Determine qual o dia da semana com maior número de viagens iniciadas.
+
+Dica: Utilize o operador [`$dayOfWeek`](https://docs.mongodb.com/manual/reference/operator/aggregation/dayOfWeek/index.html) para extrair o dia da semana como um número de uma data.
+
+O resultado da sua query deve ter o seguinte formato:
+
+```javascript
+{ "diaDaSemana" : <dia_da_semana>, "total" : <total_de_viagens> }
+```
+
+use("aggregations");
+db.trips.aggregate([
+  {
+    $group: {
+      _id: { $dayOfWeek: "$startTime" },
+      count: { $sum: 1 }
+    }
+  },
+  { $sort: { count: -1 } },
+  { $limit: 1 },
+  {
+    $project: {
+      _id: 0, diaDaSemana: "$_id", total: "$count"
+    }
+  }
+])
+
+### Desafio 12
+
+#### Usando a pipeline anterior que retorna o dia com mais viagens, determine qual estação tem o maior número de viagens nesse dia da semana.
+
+- Exiba apenas o nome da estação e o total de viagens.
+
+Dica: Utilize o operador [`$dayOfWeek`](https://docs.mongodb.com/manual/reference/operator/aggregation/dayOfWeek/index.html) para extrair o dia da semana como um número de uma data.
+
+O resultado da sua query deve ter o seguinte formato:
+
+```javascript
+{ "nomeEstacao" : <nome_da_estacao>, "total" : <total_de_viagens> }
+```
+
+use("aggregations");
+db.trips.aggregate([
+  {
+    $group: {
+      _id: { $dayOfWeek: "$startTime" },
+      count: { $sum: 1 }
+    }
+  },
+  { $sort: { count: -1 } },
+  { $limit: 1 },
+  {
+    $project: { count: 0 }
+  }
+])
+
+use("aggregations");
+db.trips.aggregate([])
+
+use("aggregations");
+db.trips.aggregate([
+  {
+    $addFields: {
+      diaDaSemana: { $dayOfWeek: "$startTime" }
+    }
+  },
+  {
+    $match: {
+      diaDaSemana: 5
+    }
+  },
+  {
+    $group: {
+      _id: "$startStationName",
+      count: { $sum: 1 }
+    }
+  },
+  { $sort: { count: -1 } },
+  { $limit: 1 }
+]);
