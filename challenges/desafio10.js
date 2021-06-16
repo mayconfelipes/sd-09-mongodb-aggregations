@@ -23,4 +23,5 @@ db.trips.aggregate([
       duracaoMedia: { $round: ["$avg_trip_time", 2] },
     },
   },
+  { $sort: { duracaoMedia: 1 } },
 ]);
