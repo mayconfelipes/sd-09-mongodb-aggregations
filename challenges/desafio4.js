@@ -1,7 +1,7 @@
 db.movies.aggregate([
   {
     $addFields: {
-      "title_split": {
+      title_split: {
         $split: ["$title", " "],
       },
     },
@@ -19,5 +19,5 @@ db.movies.aggregate([
       _id: false,
       title_split: true,
     },
-  },  
+  },
 ]);
