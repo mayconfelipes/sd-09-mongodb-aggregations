@@ -10,8 +10,8 @@ db.movies.aggregate([{ $match: { $and: [
     titulo: "$title",
     avaliado: "$rated",
     notaIMDB: "$imdb.rating",
-    votosIMDB: "imdb.votes",
-    ano: "year",
+    votosIMDB: "$imdb.votes",
+    ano: "$year",
   },
 },
 ]);
