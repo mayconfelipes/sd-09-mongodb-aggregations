@@ -1,29 +1,18 @@
 use('aggregations');
+// title_split deve conter uma lista de palavras presentes em title.
+// A pipeline deve retornar apenas filmes com o título composto apenas de uma palavra.
+// A pipeline deve ser ordenada por title em ordem alfabética.
+// Por exemplo, "Cinderela" e "3-25" devem entrar nessa contagem, mas "Cast Away" não.
+// Dica: utilize os operadores $split, $size e $sort para te auxiliar. Documentação do $split
+// Sua query deve retornar 8068 documentos.
 
 // db.movies.find().limit(1);
 db.movies.aggregate([
   {
-    $match: {
-      "imdb.rating": { $gte: 7 },
-      genres: { $nin: ["Crime", "Horror"] },
-      rated: { $in: ["PG", "G"] },
-      languages: { $all: ["English", "Spanish"] },
-    },
-  },
-    {
-    $sort: {
-      ano: 1,
-      notaIMDB: 1,
-    },
-  },
-  {
     $project: {
       _id: 0,
-      titulo: "$title",
-      avaliado: "$rated",
-      notaIMDB: "$imdb.rating",
-      votosIMDB: "$imdb.votes",
-      ano: "$year",
-    },
+      title: { $split: ["$title", " "]},
+    }
   },
-]);
+
+])
