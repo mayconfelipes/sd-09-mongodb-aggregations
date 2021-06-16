@@ -1,18 +1,20 @@
 use('aggregations');
-// title_split deve conter uma lista de palavras presentes em title.
-// A pipeline deve retornar apenas filmes com o título composto apenas de uma palavra.
-// A pipeline deve ser ordenada por title em ordem alfabética.
-// Por exemplo, "Cinderela" e "3-25" devem entrar nessa contagem, mas "Cast Away" não.
-// Dica: utilize os operadores $split, $size e $sort para te auxiliar. Documentação do $split
-// Sua query deve retornar 8068 documentos.
+// Considerando esta lista, crie uma pipeline que retorne o title do vigésimo quinto filme da agregação que satisfaz as seguintes condições:
+// countries é Estados unidos (Utilize a sigla)
+// tomatoes.viewer.rating maior ou igual a 3
+// Crie um novo campo chamado num_favs, que represente quantos atores ou atrizes da nossa lista de favoritos aparecem no elenco (campo cast) do filme.
+// Ordene os resultados por num_favs, tomatoes.viewer.rating e title, todos em ordem decrescente.
+// Dica: coloque a lista de atores e atrizes favoritos em uma variável e explore operadores como $size e $setIntersection.
+// O resultado da sua query deve ter o seguinte formato:
+// { "title" : <nome_do_filme> }
+
+const favoritos = [
+  "Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George looney",
+];
 
 // db.movies.find().limit(1);
 db.movies.aggregate([
   {
-    $project: {
-      _id: 0,
-      title: { $split: ["$title", " "]},
-    }
-  },
-
+    $match: { countries: "USA"}
+  }
 ])
