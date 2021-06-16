@@ -1,6 +1,15 @@
-use('aggregations');
+// Retorne esses filmes ordenados por ano e nota IMDB de forma decrescente e por ordem alfabética.
+// O resultado da sua query deve ter o seguinte formato:
+// {
+// {
+//   "titulo": "McFarland, USA",
+//   "avaliado": "PG",
+//   "notaIMDB": 7.5,
+//   "votosIMDB": 14091,
+//   "ano": 2015
+// }
+// Demais documentos
 
-// db.movies.find().limit(1);
 db.movies.aggregate([
   {
     $match: {
@@ -8,12 +17,6 @@ db.movies.aggregate([
       genres: { $nin: ["Crime", "Horror"] },
       rated: { $in: ["PG", "G"] },
       languages: { $all: ["English", "Spanish"] },
-    },
-  },
-    {
-    $sort: {
-      ano: 1,
-      notaIMDB: 1,
     },
   },
   {
@@ -24,6 +27,12 @@ db.movies.aggregate([
       notaIMDB: "$imdb.rating",
       votosIMDB: "$imdb.votes",
       ano: "$year",
+    },
+  },
+  {
+    $sort: {
+      ano: -1,
+      notaIMDB: -1,
     },
   },
 ]);
