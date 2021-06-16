@@ -7,22 +7,22 @@ db.air_alliances.aggregate([
       let: { airlineName: "$airlines" },
       pipeline: [
         {
-          $match: { 
+          $match: {
             airplane: { $in: ["747", "380"] },
-            $expr: { $eq: ["$airline.name", "$$airlineName"] }
-          }
-        }
+            $expr: { $eq: ["$airline.name", "$$airlineName"] },
+          },
+        },
       ],
-      as: 'alience'
-    }
+      as: "alience",
+    },
   },
   { $unwind: "$alience" },
   {
     $group: {
       _id: "$name",
-      totalRotas: { $sum: 1 }
-    }
+      totalRotas: { $sum: 1 },
+    },
   },
   { $sort: { totalRotas: -1 } },
-  { $limit: 1 }
+  { $limit: 1 },
 ]);
