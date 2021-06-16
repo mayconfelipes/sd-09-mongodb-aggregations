@@ -1,4 +1,11 @@
 db.trips.aggregate([
-  { $match: { startTime: { $eq: { $dateToString: { date: "10-03-2016" } } } } },
-  // { $group: { _id: "$startTime" } },
+  { $addFields: {
+    toCompareStartDate: { $dateToString: {
+      format: "%Y-%m-%d",
+      date: "$startTime",
+    } },
+  } },
+  { $match: { toCompareStartDate: { $eq: "2016-03-10" } } },
+  { $group: { _id: "$toCompareStartDate", duracaoMediaEmMinutos: { $avg: { $subtract: ["$stopTime", "$startTime"] } } } },
+  { $project: { _id: 0, duracaoMediaEmMinutos: { $ceil: { $divide: ["$duracaoMediaEmMinutos", 1000 * 60] } } } },
 ]);
