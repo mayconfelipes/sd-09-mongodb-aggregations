@@ -73,3 +73,33 @@ db.movies.aggregate([
     $sort: { ano: -1, notaIMDB: -1 },
   },
 ]);
+
+
+// Desafio 4
+// Nosso dataset de filmes tem muitos documentos diferentes, alguns com títulos "mais complexos" do que outros. Se quisermos analisar nossa coleção para encontrar títulos de filmes que têm uma só palavra no título, poderíamos buscar todos os filmes do dataset e processar isso na aplicação, mas o Aggregation Framework nos permite fazer isso diretamente no lado do banco de dados.
+
+use('aggregations');
+
+db.movies.aggregate([
+  {
+    $addFields: {
+      "title_split": {
+        $split: ["$title", " "],
+      },
+    },
+  },
+  {
+    $match: {
+      title_split: { $size: 1 },
+    },
+  },
+  {
+    $sort: { title_split: 1 },
+  },
+  {
+    $project: {
+      _id: false,
+      title_split: true,
+    },
+  },  
+]);
