@@ -11,3 +11,22 @@ A partir da coleção trips, determine o menor e o maior ano de nascimento.
 O resultado da sua query deve ter o seguinte formato:
 { "maiorAnoNascimento" : <ano>, "menorAnoNascimento" : <ano> }
 */
+db.trips.aggregate([
+  {
+    $match: {
+      birthYear: { $exists: true, $ne: "" },
+    },
+  },
+  {
+    $group: {
+      _id: null,
+      maiorAnoNascimento: { $max: { $toInt: "$birthYear" } },
+      menorAnoNascimento: { $min: { $toInt: "$birthYear" } },
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);

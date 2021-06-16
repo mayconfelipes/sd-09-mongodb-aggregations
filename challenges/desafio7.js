@@ -13,3 +13,32 @@ do campo imdb.rating para cada um desses atores e atrizes.
 Sua query deve retornar 47055 documentos. Cada documento no resultado deve ter o seguinte formato:
 { "_id" : "John Wayne", "numeroFilmes" : 107, "mediaIMDB" : 6.4 }
 */
+db.movies.aggregate([
+  {
+    $match: {
+      languages: { $all: ["English"] },
+    },
+  },
+  {
+    $unwind: "$cast",
+  },
+  {
+    $group: {
+      _id: "$cast",
+      numeroFilmes: { $sum: 1 },
+      mediaIMDB: { $avg: "$imdb.rating" },
+    },
+  },
+  {
+    $sort: {
+      numeroFilmes: -1,
+      _id: -1,
+    },
+  },
+  {
+    $project: {
+      numeroFilmes: 1,
+      mediaIMDB: { $round: ["$mediaIMDB", 1] },
+    },
+  },
+]);
