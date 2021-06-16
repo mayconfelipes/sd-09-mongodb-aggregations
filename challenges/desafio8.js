@@ -8,6 +8,7 @@ db.air_alliances.aggregate([
       as: "route",
     },
   },
+  { $unwind: "$route" },
   {
     $match: {
       "route.airplane": { $in: ["747", "380"] },
@@ -19,4 +20,6 @@ db.air_alliances.aggregate([
       totalRotas: { $sum: 1 },
     },
   },
+  { $sort: { totalRotas: -1 } },
+  { $limit: 1 },
 ]);
