@@ -18,18 +18,17 @@ db.movies.aggregate(
       },
     },
     {
-      $project:
+      $sort:
       {
-        cast: 1,
-        title: 1,
-        numeroFilmes: 1,
-        mediaIMDB: { $round: ["$mediaIMDB", 1] },
+        numeroFilmes: -1, _id: -1,
       },
     },
     {
-      $sort:
+      $project:
       {
-        numeroFilmes: -1, cast: -1,
+        title: 1,
+        numeroFilmes: 1,
+        mediaIMDB: { $round: ["$mediaIMDB", 1] },
       },
     },
   ],
