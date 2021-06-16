@@ -19,7 +19,7 @@ db.movies.aggregate([
       num_favs: {
         $size: {
           $setIntersection: [
-            favoritesActors, "$cast", 
+            favoritesActors, "$cast",
           ],
         },
       },
