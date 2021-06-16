@@ -7,7 +7,7 @@ db.trips.aggregate([
   {
     $group: {
       _id: "$usertype",
-      avarageMilliseconds: { $avg: "$subtractTime" }
+      avarageMilliseconds: { $avg: "$subtractTime" },
     },
   },
   {
