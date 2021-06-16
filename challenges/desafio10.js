@@ -17,4 +17,4 @@ db.trips.aggregate([
       duracaoMedia: { $round: [{ $divide: ["$avarageMilliseconds", 3600000] }, 2] },
     },
   },
-]);
+]); //Teste de push
