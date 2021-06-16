@@ -1,23 +1,30 @@
 // use('aggregations');
 db.trips.aggregate([
-  { $match: {
-    startTime: { $gte: ISODate("2016-03-10T00:00:00Z"), $lt: ISODate("2016-03-10T23:59:59Z") },
-  } },
-
   { $addFields: {
     // tempo em minutos -> 60min * 1000milisec = 60000
     duracaoMinutos: { $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 60000] },
   } },
 
   { $group: {
-    _id: null,
+    _id: "$bikeid",
     duracaoTotalMinutos: { $sum: "$duracaoMinutos" },
     total: { $sum: 1 },
+
+    // usando AVG
+    // TESTEavg: { $avg: "$duracaoMinutos" }
   } },
 
   { $project: {
     _id: 0,
-    duracaoMediaEmMinutos: {
-      $round: [{ $divide: ["$duracaoTotalMinutos", "$total"] }] },
+    bikeId: "$_id",
+    duracaoMedia: {
+      $ceil: [{ $divide: ["$duracaoTotalMinutos", "$total"] }] },
+
+    // duracaoMedia1: { $ceil: "$TESTEavg" }
   } },
+
+  { $sort: { duracaoMedia: -1 } },
+
+  { $limit: 5 },
+
 ]);
