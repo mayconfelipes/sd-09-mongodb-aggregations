@@ -7,16 +7,16 @@ db.trips.aggregate([
   {
     $match: {
       nascimento: true,
-    }
+    },
   },
   {
     $group: {
       _id: null,
       maiorAnoNascimento: { $max: "$birthYear" },
       menorAnoNascimento: { $min: "$birthYear" },
-    }
+    },
   },
   {
-    $project: { _id: 0 }
-  }
+    $project: { _id: 0 },
+  },
 ]);
