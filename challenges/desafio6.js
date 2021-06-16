@@ -18,8 +18,8 @@ db.movies.aggregate([
       _id: 0,
       maior_rating: 1,
       menor_rating: 1,
-      media_rating: { $round: "$mediaRating" },
-      desvio_padrao: { $round: "$desvioPadrao" },
+      media_rating: { $round: ["$mediaRating", 1] },
+      desvio_padrao: { $round: ["$desvioPadrao", 1] },
     },
   },
 ]);

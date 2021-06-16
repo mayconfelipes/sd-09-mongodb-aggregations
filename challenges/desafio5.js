@@ -3,13 +3,10 @@ const favoriteActors = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin S
 db.movies.aggregate([
   {
     $match: {
-      countries: { $eq: "USA" },
+      countries: "USA",
       "tomatoes.viewer.rating": { $gte: 3 },
       cast: { $in: favoriteActors },
     },
-  },
-  {
-    $sort: { num_favs: -1, "tomatoes.viewer.rating": -1, title: -1 },
   },
   {
     $addFields: {
@@ -17,8 +14,11 @@ db.movies.aggregate([
     },
   },
   {
+    $sort: { num_favs: -1, "tomatoes.viewer.rating": -1, title: -1 },
+  },
+  {
     $project: { _id: 0, title: 1 },
   },
-  { $limit: 1 },
+  { $limit: 25 },
   { $skip: 24 },
 ]);
