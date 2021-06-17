@@ -1,17 +1,11 @@
 db.trips.aggregate([
   {
-    $project: {
-      usertype: 1,
-      timeDiff: {
-        $subtract: ["$stopTime", "$startTime"],
-      },
-    },
-  },
-  {
     $group: {
       _id: "$usertype",
       duracaoMedia: {
-        $avg: "$timeDiff",
+        $avg: {
+          $subtract: ["$stopTime", "$startTime"],
+        },
       },
     },
   },
