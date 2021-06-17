@@ -7,13 +7,7 @@ const favActors = [
 ];
 
 db.movies.aggregate([
-  {
-    $match: {
-      countries: "USA",
-      "tomatoes.viewer.rating": { $gte: 3 },
-      cast: { $exists: true },
-    },
-  },
+  { $match: { countries: "USA", "tomatoes.viewer.rating": { $gte: 3 }, cast: { $exists: true } } },
   { $addFields: { fav_actors: { $setIntersection: ["$cast", favActors] } } },
   { $addFields: { num_favs: { $size: "$fav_actors" } } },
   { $sort: { num_favs: -1, "tomatoes.viewer.rating": -1, title: -1 } },
