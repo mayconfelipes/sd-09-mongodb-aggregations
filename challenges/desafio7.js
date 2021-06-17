@@ -1,11 +1,11 @@
 db.movies.aggregate([
   {
+    $unwind: "$cast",
+  },
+  {
     $match: {
       languages: "English",
     },
-  },
-  {
-    $unwind: "$cast",
   },
   {
     $group: {
@@ -13,7 +13,7 @@ db.movies.aggregate([
     },
   },
   {
-    $sort: { numeroFilmes: -1, cast: -1 },
+    $sort: { numeroFilmes: -1, _id: -1 },
   },
   {
     $project: {
