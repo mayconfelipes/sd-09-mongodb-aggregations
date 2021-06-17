@@ -14,14 +14,9 @@ db.trips.aggregate([
     },
   },
   {
-    $project: {
-      subtractTime: { $subtract: ["$stopTime", "$startTime"] },
-    },
-  },
-  {
     $group: {
       _id: null,
-      avgMillisecondes: { $avg: "$subtractTime" },
+      avgMillisecondes: { $avg: { $subtract: ["$stopTime", "$startTime"] } },
     },
   },
   {
