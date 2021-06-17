@@ -1,11 +1,9 @@
-const favorites = ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"];
-
 db.movies.aggregate([
   {
     $match: {
       countries: "USA",
       "tomatoes.viewer.rating": { $gte: 3 },
-      cast: { $in: [favorites] },
+      cast: { $in: ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"] },
     },
   },
   {
@@ -13,8 +11,8 @@ db.movies.aggregate([
       num_favs: {
         $size: {
           $setIntersection: [
-            favorites,
             "$cast",
+            ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"],
           ],
         },
       },
