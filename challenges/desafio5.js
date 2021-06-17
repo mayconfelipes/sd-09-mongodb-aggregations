@@ -5,8 +5,7 @@ db.movies.aggregate([
     cast: { $in: ["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"] },
   } },
   {
-    $project: {
-      title: 1,
+    $addFields: {
       found_actors: { $setIntersection: [["Sandra Bullock", "Tom Hanks", "Julia Roberts", "Kevin Spacey", "George Clooney"], "$cast"] },
     },
   },
