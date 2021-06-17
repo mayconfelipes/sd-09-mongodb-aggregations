@@ -29,7 +29,7 @@ db.air_routes.aggregate([
   },
   {
     $group: {
-      _id: "$alliance",
+      _id: "$alliance.name",
       totalRotas: { $sum: 1 },
     },
   },
