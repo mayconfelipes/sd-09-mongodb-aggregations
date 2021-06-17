@@ -16,6 +16,6 @@ db.movies.aggregate([
     },
   },
   {
-    $sort: { numeroFilmes: -1, _id: 1 },
+    $sort: { numeroFilmes: -1, _id: -1 },
   },
 ]);
