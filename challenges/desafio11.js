@@ -15,7 +15,7 @@ db.trips.aggregate(
       {
         diaDaSemana: "$_id",
         _id: 0,
-        total: 1,
+        total: "$total",
       },
     },
     {
