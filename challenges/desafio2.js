@@ -31,4 +31,4 @@ db.movies.aggregate([
       _id: 0,
     },
   },
-]).pretty();
+]);
