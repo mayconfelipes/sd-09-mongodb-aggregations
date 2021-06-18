@@ -14,6 +14,6 @@ db.trips.aggregate([
     $sort: { duracaoMedia: -1 },
   },
   {
-    $project: { duracaoMediaEmMinutos: { $round: ["$duracaoMediaEmMinutos", 0] } },
+    $project: { _id: 0, duracaoMediaEmMinutos: { $round: ["$duracaoMediaEmMinutos", 0] } },
   },
 ]);
