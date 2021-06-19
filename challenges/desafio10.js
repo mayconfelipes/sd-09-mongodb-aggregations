@@ -14,6 +14,6 @@ db.trips.aggregate([
       duracaoMedia: { $round: [{
         $divide: ["$duracaoMedia", milisecondsToHour],
       }, 2] },
-    }
-  }
+    },
+  },
 ]);
