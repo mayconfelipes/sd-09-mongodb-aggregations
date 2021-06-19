@@ -10,7 +10,7 @@ db.trips.aggregate([
   {
     $project: {
       _id: 0,
-      tipo: "usertype",
+      tipo: "$_id",
       duracaoMedia: { $round: [{
         $divide: ["$duracaoMedia", milisecondsToHour],
       }, 2] },
