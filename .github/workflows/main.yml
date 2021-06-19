@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: MongoDB Query Evaluator Step
-        uses: betrybe/mongodb-query-evaluator-action@v2.2
+        uses: betrybe/mongodb-query-evaluator-action@v4
         id: evaluator
         env:
           DBNAME: 'aggregations'
