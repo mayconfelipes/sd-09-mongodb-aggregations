@@ -9,7 +9,11 @@ const favoriteStars = [
 db.movies.aggregate([
   {
     $match: {
-      countries: "USA",
+      countries: {
+        $elemMatch: {
+          $eq: "USA",
+        },
+      },
       "tomatoes.viewer.rating": {
         $gte: 3,
       },
