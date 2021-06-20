@@ -1,3 +1,11 @@
+const actors = [
+  "Sandra Bullock",
+  "Tom Hanks",
+  "Julia Roberts",
+  "Kevin Spacey",
+  "George Clooney",
+];
+
 db.movies.aggregate([
   {
     $match: {
@@ -21,6 +29,12 @@ db.movies.aggregate([
       "tomatoes.viewer.rating": -1,
       title: -1,
     },
+  },
+  {
+    $skip: 24,
+  },
+  {
+    $limit: 1,
   },
   {
     $project: {
