@@ -1,4 +1,3 @@
-db.trips.find();
 db.trips.aggregate([
   {
     $group: {
