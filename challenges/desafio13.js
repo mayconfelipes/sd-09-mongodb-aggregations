@@ -15,7 +15,7 @@ db.trips.aggregate([
   {
     $project: {
       _id: 0,
-      duracaoMediaMinutos: {
+      duracaoMediaEmMinutos: {
         $ceil: {
           $divide: ["$deltaTempo", 1000 * 60],
         },

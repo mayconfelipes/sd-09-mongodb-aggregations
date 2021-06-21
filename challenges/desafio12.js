@@ -16,11 +16,11 @@ db.trips.aggregate([
   },
   {
     $project: {
-      estacao: "$_id.estacao",
+      nomeEstacao: "$_id.estacao",
       total: "$qtd",
       _id: 0,
     },
   },
   { $sort: { total: -1 } },
   { $limit: 1 },
-], { allowDiskUse: true });
+]);
