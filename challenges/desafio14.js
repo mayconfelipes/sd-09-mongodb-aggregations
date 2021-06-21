@@ -4,7 +4,7 @@ db.trips.aggregate([
       _id: "$bikeid",
       duracaoMedia: {
         $avg: {
-          $subtract: [{ $subtract: ["$stopTime", "$startTime"] }, 60 * 1000],
+          $divide: [{ $subtract: ["$stopTime", "$startTime"] }, 60 * 1000],
         },
       },
     },
@@ -14,7 +14,7 @@ db.trips.aggregate([
       _id: 0,
       bikeid: "$_id",
       duracaoMedia: {
-        $round: [{ $divide: ["$duracaoMedia", 60 * 60 * 1000] }, 2],
+        $ceil: "$duracaoMedia",
       },
     },
   },
