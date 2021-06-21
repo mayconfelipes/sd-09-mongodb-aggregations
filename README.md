@@ -207,6 +207,11 @@ Para executar localmente os testes, é preciso escrever o seguinte no seu termin
 
 Esse script passará por **todos os desafios** e imprimirá um relatório indicando se passou ou não para cada desafio. Como a execução do script **envolve restauração da base de dados `aggregations`** de um teste para outro, recomenda-se esperar pela sua execução completa.
 
+Para executar somente o teste de um desafio, execute o comando abaixo, substituindo N pelo númedo do desafio
+```sh
+./scripts/evaluate.sh desafioN
+```
+
 ⚠️ Como na avaliação o banco de dados `aggregations` é restaurado de um teste para outro, **se atente a fazer uso do banco restaurado na hora de fazer um desafio**. ⚠️
 
 ---
@@ -287,7 +292,7 @@ Temos outra noite de filme aqui na Trybe e, desta vez, nós perguntamos à equip
 
 #### Considerando esta lista, crie uma _pipeline_ que retorne o `title` do vigésimo quinto filme da agregação que satisfaz as seguintes condições:
 
-- `countries` é Estados unidos
+- `countries` é Estados unidos (Utilize a sigla)
 - `tomatoes.viewer.rating` maior ou igual a `3`
 -  Crie um novo campo chamado `num_favs`, que represente quantos atores ou atrizes da nossa lista de favoritos aparecem no elenco (campo `cast`) do filme.
 - Ordene os resultados por `num_favs`, `tomatoes.viewer.rating` e `title`, todos em ordem decrescente.
