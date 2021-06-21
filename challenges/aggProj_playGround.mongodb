@@ -1,67 +1,35 @@
 use("aggregations");
-// db.movies.find( {cast: {$in: ["Michael Caine"]}});
-db.movies.aggregate([
+// db.trips.find();
+db.trips.aggregate([ 
   {
-    $match: {
-      languages: "English",
+    $match: 
+  }
+  { 
+    $project: {
+      diaDaSemana: { $dayOfWeek: "$startTime"}
     },
   },
-  { $unwind: "$cast" },
-  { $group: {
-    _id: "$cast",
-    numeroFilmes: { $sum: 1 },
-    mediaIMDB: { $avg: "$imdb.rating" },
+  {
+    $group: { 
+      _id: "$diaDaSemana",
+      qtd: {$sum: 1},
+    },
   },
+  { 
+    $project: {
+      diaDaSemana: { $max: "$_id" },
+      total: "$qtd",
+      _id: 0,
+      startTime: 1,
+
+    },
   },
-  { $project: {
-    _id: 1,
-    numeroFilmes: 1,
-    mediaIMDB: {
-      $round: ["$mediaIMDB", 1] },
-  },
-  },
-  { $sort: { numeroFilmes: -1, _id: -1 } },
-]);
-      
-// Desafio 8
-// Trocando de contexto, vamos utilizar nosso outro dataset que contém dados de empresas aéreas, suas rotas, seus voos e parcerias.
+  { $sort: {total: -1} },
+  { $limit: 1 },
+], { allowDiskUse: true } );
 
-// Liste todas as parcerias da coleção air_alliances, que voam rotas com um Boing 747 ou um Airbus A380 , para descobrir qual delas tem o maior número de rotas com esses aviões.
-// No campo airplane, na coleção air_routes:
 
-// Boing 747 está abreviado para 747
-// Airbus A380 está abreviado para 380
-// O resultado da sua query deve ter o seguinte formato:
 
-// { "_id" : <nome_da_alianca>, "totalRotas" : <total_de_rotas> }
-// Desafio 9
-// A partir da coleção trips, determine o menor e o maior ano de nascimento.
-// Guarde essa informação, você precisará dela mais tarde.
-
-// Não considere documentos com valores vazios ("") e em que o campo não existe!
-
-// Para este desafio utilize o operador $toInt para converter de string para valor inteiro.
-
-// O resultado da sua query deve ter o seguinte formato:
-
-// { "maiorAnoNascimento" : <ano>, "menorAnoNascimento" : <ano> }
-// Desafio 10
-// Encontre a média de viagens por tipo de usuário.
-// Exiba o valor em horas com apenas duas casas decimais
-// Exiba a média de viagens ordenada de forma crescente.
-// Para arredondar a média use o $round.
-
-// O resultado da sua query deve ter o seguinte formato:
-
-// { "tipo" : <tipo>, "duracaoMedia" : <duracaoMedia> }
-// // ...
-// Desafio 11
-// Determine qual o dia da semana com maior número de viagens iniciadas.
-// Dica: Utilize o operador $dayOfWeek para extrair o dia da semana como um número de uma data.
-
-// O resultado da sua query deve ter o seguinte formato:
-
-// { "diaDaSemana" : <dia_da_semana>, "total" : <total_de_viagens> }
 // Desafio 12
 // Usando a pipeline anterior que retorna o dia com mais viagens, determine qual estação tem o maior número de viagens nesse dia da semana.
 // Exiba apenas o nome da estação e o total de viagens.
@@ -70,6 +38,8 @@ db.movies.aggregate([
 // O resultado da sua query deve ter o seguinte formato:
 
 // { "nomeEstacao" : <nome_da_estacao>, "total" : <total_de_viagens> }
+
+
 // Desafio 13
 // Determine a duração média das viagens iniciadas no dia 10/03/2016, em minutos.
 // Arredonde o resultado para cima.
@@ -86,4 +56,16 @@ db.movies.aggregate([
 // { "bikeId" : <bike_id>, "duracaoMedia" : <duracao_media> }
 // { "bikeId" : <bike_id>, "duracaoMedia" : <duracao_media> }
 // { "bikeId" : <bike_id>, "duracaoMedia" : <duracao_media> }
+
+// Desafio 8
+// Trocando de contexto, vamos utilizar nosso outro dataset que contém dados de empresas aéreas, suas rotas, seus voos e parcerias.
+
+// Liste todas as parcerias da coleção air_alliances, que voam rotas com um Boing 747 ou um Airbus A380 , para descobrir qual delas tem o maior número de rotas com esses aviões.
+// No campo airplane, na coleção air_routes:
+
+// Boing 747 está abreviado para 747
+// Airbus A380 está abreviado para 380
+// O resultado da sua query deve ter o seguinte formato:
+
+// { "_id" : <nome_da_alianca>, "totalRotas" : <total_de_rotas> }
 
