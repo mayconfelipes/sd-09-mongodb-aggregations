@@ -1,5 +1,3 @@
-const milSegPorHora = 60 * 60 * 1000;
-
 db.trips.aggregate([
   {
     $group:
@@ -13,7 +11,7 @@ db.trips.aggregate([
     {
       _id: 0,
       tipo: "$_id",
-      duracaoMedia: { $round: [{ $divide: ["$total", milSegPorHora] }, 2] },
+      duracaoMedia: { $round: [{ $divide: ["$total", 60 * 60 * 1000] }, 2] },
     },
   },
 ]);
