@@ -1,23 +1,12 @@
 use('aggregations');
-db.air_routes.aggregate([
+
+db.trips.aggregate([
   {
-    $lookup: {
-      from: "air_alliances",
-      localField: "airline.name",
-      foreignField: "airlines",
-      as: "name_routes",
-    },
-  },
-  // {
-  //   $unwind: "$name_routes",
-  // },
-  // {
-  //   $match: { airplane: { $in: ["747", "380"] } },
-  // },
-  // {
-  //   $group: { _id: "$name_routes.name", totalRotas: { $sum: 1 } },
-  // },
-  // {
-  //   $sort: { totalRotas: -1 },
-  // },
+    $group: {
+      _id: "$startTime",
+    }
+  }
+  {
+    $count: "$bikeid"
+  }
 ]);
