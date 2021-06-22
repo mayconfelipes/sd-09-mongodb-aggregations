@@ -3,18 +3,18 @@ db.trips.aggregate(
     {
       $addFields: {
         dayOfWeek: { $dayOfWeek: "$startTime" },
-      }
+      },
     },
     {
       $match: {
-        dayOfWeek: { $eq: 5 }
-      }
+        dayOfWeek: { $eq: 5 },
+      },
     },
     {
       $group: {
         _id: "$startStationName",
         total: { $sum: 1 },
-      }
+      },
     },
     {
       $project: {
@@ -27,6 +27,7 @@ db.trips.aggregate(
       $sort: { total: -1 },
     },
     {
-      $limit: 1
-    }
-  ]);
+      $limit: 1,
+    },
+  ],
+);

@@ -1,14 +1,13 @@
-
 db.trips.aggregate(
   [
-     {
+    {
       $group: {
-        _id: "$usertype" ,
-        duracaoMedia: { $avg: { 
-           $subtract: ["$stopTime", "$startTime"],
-         } },
+        _id: "$usertype",
+        duracaoMedia: { $avg: {
+          $subtract: ["$stopTime", "$startTime"],
+        } },
       },
-     },
+    },
     {
       $project: {
         _id: 0,
@@ -17,6 +16,7 @@ db.trips.aggregate(
       },
     },
     {
-      $sort:{ duracaoMedia: 1 },
+      $sort: { duracaoMedia: 1 },
     },
-  ]);
+  ],
+);
