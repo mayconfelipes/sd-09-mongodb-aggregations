@@ -5,7 +5,7 @@ db.movies.aggregate([
     },
   },
   {
-    $unwind: $cast,
+    $unwind: "$cast",
   },
   {
     $group: {
