@@ -8,6 +8,6 @@ db.movies.aggregate([
       mediaIMDB: { $avg: "$imdb.rating" },
     },
   },
-  { $sort: { numeroFilmes: -1, _id: 1 } },
+  { $sort: { numeroFilmes: -1, _id: -1 } },
   { $project: { numeroFilmes: 1, mediaIMDB: { $round: ["$mediaIMDB", 1] } } },
 ]);
