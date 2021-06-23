@@ -27,7 +27,7 @@ db.trips.aggregate([
   },
   {
     $sort: {
-      tripAvgTime: 1
+      tripAvgTime: 1,
     },
   },
 ]);
