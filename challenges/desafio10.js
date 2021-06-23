@@ -1,5 +1,4 @@
 const milisecondsToHour = 1000 * 60 * 60;
-
 db.trips.aggregate([
   {
     $group: {
@@ -15,5 +14,8 @@ db.trips.aggregate([
         $divide: ["$duracaoMedia", milisecondsToHour],
       }, 2] },
     },
+  },
+  {
+    $sort: { duracaoMedia: 1 },
   },
 ]);
