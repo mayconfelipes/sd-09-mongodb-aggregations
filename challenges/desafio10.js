@@ -1,5 +1,3 @@
-const hour = 60 * 60 * 1000;
-
 db.trips.aggregate([
   {
     $group: {
@@ -23,7 +21,7 @@ db.trips.aggregate([
           {
             $divide: [
               "$tripAvgTime",
-              hour,
+              60 * 60 * 1000,
             ],
           },
           2,
