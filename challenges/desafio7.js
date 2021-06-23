@@ -5,15 +5,15 @@ aggregations >
     {
       $group: {
         _id: "$cast",
-        qtdFilmes: { $sum: 1 },
+        numeroFilmes: { $sum: 1 },
         mediaIMDB: { $avg: "$imdb.rating" },
       },
     },
-    { $sort: { qtdFilmes: -1, _id: -1 } },
+    { $sort: { numeroFilmes: -1, _id: -1 } },
     {
       $project: {
         _id: 1,
-        qtdFilmes: 1,
+        numeroFilmes: 1,
         mediaFilmes: { $round: ["$mediaIMDB", 1] },
       },
     },
