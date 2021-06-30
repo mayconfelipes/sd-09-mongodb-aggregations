@@ -35,5 +35,5 @@ db.movies.aggregate([
   },
   {
     $limit: 41,
-  }
+  },
 ]);
