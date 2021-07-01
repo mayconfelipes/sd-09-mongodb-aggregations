@@ -9,7 +9,7 @@ const favoriteActors = [
 db.movies.aggregate([
   {
     $match: {
-      countries: "USA",
+      countries: ["USA"],
       "tomatoes.viewer.rating": { $gte: 3 },
       cast: { $type: "array" },
     },
@@ -45,4 +45,4 @@ db.movies.aggregate([
       title: 1,
     },
   },
-]);
+]).pretty();
