@@ -5,11 +5,7 @@ db.movies.aggregate([
   { $addFields: { actorsIntersection: { $setIntersection: [favoriteActors, "$cast"] } } },
   { $addFields: { num_favs: { $size: "$actorsIntersection" } } },
   { $sort: { num_favs: -1, "tomatoes.viewer.rating": -1, title: -1 } },
-  { $project: {
-    _id: 0,
-    title: 1,
-  },
-  },
+  { $project: { _id: 0, title: 1 } },
   { $skip: 24 },
   { $limit: 1 },
 ]);
