@@ -24,3 +24,6 @@ db.trips.aggregate([
     },
   },
 ]);
+
+// Honestidade Intelectual:
+// Fontes - https://docs.mongodb.com/ e https://github.com/tryber/sd-05-project-mongodb-aggregations/pull/2/files
