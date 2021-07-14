@@ -2,7 +2,7 @@ db.movies.aggregate([
   {
     $match: {
       countries: "USA",
-      "tomatoes.viewer.rating": { $gte: 3 },
+      "tomatoes.viewer.rating": { $gt: 2 },
       cast: { $exists: true },
     },
   }, {
